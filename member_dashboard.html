@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Member Dashboard Access</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 400px;
+        margin: 40px auto;
+        text-align: center;
+        background: #f5f5f5;
+      }
+      #box {
+        padding: 25px;
+        border-radius: 16px;
+        background: #ffffff;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      }
+      input {
+        padding:12px;
+        font-size:16px;
+        width:80%;
+        border-radius:10px;
+        border:2px solid #137a3d;
+        text-align:center;
+        outline:none;
+      }
+      button {
+        padding:12px 20px;
+        margin-top: 15px;
+        font-size:16px;
+        background:#137a3d;
+        color:white;
+        border:none;
+        border-radius:12px;
+        cursor:pointer;
+      }
+      #error {
+        color:red;
+        margin-top:20px;
+        font-size:14px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="box">
+      <h2 style="color:#137a3d;">Member Dashboard Access</h2>
+      <p>Enter your Member ID to access your troop page.</p>
+
+      <input id="memberId" maxlength="9" placeholder="Enter up to 9 digits"
+        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+      <br>
+
+      <button onclick="go()">Enter Member Dashboard</button>
+
+      <p id="error"></p>
+    </div>
+
+    <script>
+      function go() {
+        const id = document.getElementById("memberId").value;
+        const error = document.getElementById("error");
+
+        if (!id) {
+          error.textContent = "Please enter a member ID.";
+          return;
+        }
+
+        const url = "https://sites.google.com/view/gstroop06302/members/" + id;
+
+        const img = new Image();
+        img.onload = function() { window.location.href = url; };
+        img.onerror = function() {
+          error.innerHTML = "Unable to find member ID. Please contact the troop for assistance at gs.troop06302@gmail.com.";
+        };
+        img.src = url + "?nocache=" + Math.random();
+      }
+    </script>
+  </body>
+</html>
